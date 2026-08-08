@@ -1,0 +1,23 @@
+name: Action Tester
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  github-action-notion-statusboard:
+    runs-on: ubuntu-latest
+    name: Test the Notion GitHub Action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+      - name: Update Notion
+        uses: ./ # Uses an action in the root directory
+        id: notion
+        with:
+          github-repository-query: user:Eomm is:public
+          notion-token: ${{ secrets.NOTION_TOKEN }}
+          notion-database-id: ${{ secrets.NOTION_DATABASE_ID }}
+          log-level: debug
+          page-size: 30

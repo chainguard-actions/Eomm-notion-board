@@ -1,0 +1,58 @@
+# See the syntax docs at
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+
+name: github-action-notion-statusboard
+description: Build a status board of your GitHub repositories in your Notion workspace
+
+inputs:
+  github-repository-query:
+    description: >
+      The GitHub query to select the repositories to be syncronized to Notion.
+    required: true
+    # default: 'user:your-username' TODO
+  github-issue-labels:
+    description: >
+      Filter the issues counter by labels. Example: 'bug,enhancement'
+    required: false
+  github-issue-columns:
+    description: >
+      Create one Notion column per label with the open issues count for that
+      label. Comma-separated list of labels.
+      Example: 'good first issue,triage,stale'
+    required: false
+  github-token:
+    description: > 
+      Your Github token, it's already available to your Github action.
+    required: false
+    default: ${{ github.token }}
+  notion-token:
+    description: >
+      The Notion integration token.
+    required: true
+  notion-database-id:
+    description: >
+      The Notion database ID where the data will be stored.
+    required: true
+  delete-additional-rows:
+    description: >
+      Delete Notion database's rows if they are not present in the GitHub query.
+    default: 'true'
+  log-level:
+    description: >
+      The log level of the action.
+    required: false
+    default: 'info'
+  page-size:
+    description: >
+      The page size of the GitHub query. Set a lower value if you are getting
+      timeout errors. The maximum is 100.
+    required: false
+    default: '100'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: activity
+  color: white
