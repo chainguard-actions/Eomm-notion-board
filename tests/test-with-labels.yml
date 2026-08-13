@@ -1,4 +1,4 @@
-name: Test basic usage - invalid credentials graceful failure
+name: Test with optional github-issue-labels parameter
 on:
   workflow_dispatch:
 jobs:
@@ -18,11 +18,12 @@ jobs:
           github-token: ${{ github.token }}
           notion-token: 'secret_invalid_token_for_testing'
           notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+          github-issue-labels: 'bug,enhancement'
           delete-additional-rows: 'false'
-          log-level: 'info'
+          log-level: 'debug'
           page-size: '10'
 
-      - name: Assert action ran (completed with outcome)
+      - name: Assert action ran with issue labels input
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |

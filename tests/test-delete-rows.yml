@@ -1,4 +1,4 @@
-name: Test basic usage - invalid credentials graceful failure
+name: Test with delete-additional-rows enabled
 on:
   workflow_dispatch:
 jobs:
@@ -18,11 +18,11 @@ jobs:
           github-token: ${{ github.token }}
           notion-token: 'secret_invalid_token_for_testing'
           notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
-          delete-additional-rows: 'false'
+          delete-additional-rows: 'true'
           log-level: 'info'
           page-size: '10'
 
-      - name: Assert action ran (completed with outcome)
+      - name: Assert action ran with delete-additional-rows enabled
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
