@@ -1,4 +1,4 @@
-name: Test basic invocation with invalid credentials
+name: Test with delete-additional-rows enabled
 on:
   workflow_dispatch:
 jobs:
@@ -7,17 +7,17 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Invoke action with dummy credentials (expect failure)
+      - name: Invoke action with delete-additional-rows true (expect failure due to invalid credentials)
         id: action
         uses: .
         continue-on-error: true
         with:
-          github-repository-query: 'user:octocat'
+          github-repository-query: 'org:github'
           github-token: 'fake-github-token'
           notion-token: 'secret_fakefakefakefakefakefakefakefakefakefakefake'
           notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
-          delete-additional-rows: 'false'
-          log-level: 'info'
+          delete-additional-rows: 'true'
+          log-level: 'debug'
 
       - name: Assert action ran (failed due to invalid credentials as expected)
         env:
