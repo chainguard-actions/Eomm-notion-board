@@ -1,4 +1,4 @@
-name: Test basic invocation
+name: Test with delete-additional-rows disabled
 on:
   workflow_dispatch:
 jobs:
@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Invoke action with required inputs (expect failure due to invalid credentials)
+      - name: Invoke action with delete-additional-rows set to false
         id: action
         uses: .
         continue-on-error: true
@@ -16,9 +16,10 @@ jobs:
           github-token: 'fake-github-token'
           notion-token: 'fake-notion-token'
           notion-database-id: 'fake-database-id'
-          log-level: 'info'
+          delete-additional-rows: 'false'
+          log-level: 'debug'
 
-      - name: Assert action ran (outcome should be failure due to invalid credentials, not a setup error)
+      - name: Assert action ran (outcome should be failure due to invalid credentials)
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
