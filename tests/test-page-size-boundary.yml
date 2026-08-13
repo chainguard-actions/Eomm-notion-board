@@ -1,0 +1,53 @@
+name: Test page-size boundary values
+on:
+  workflow_dispatch:
+jobs:
+  test-page-size-min:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run action with page-size=1 (minimum valid value, expect Notion API failure not validation failure)
+        id: action_min
+        uses: .
+        continue-on-error: true
+        with:
+          github-repository-query: 'user:actions'
+          notion-token: 'secret_fakeinvalidtoken00000000000000000000000000'
+          notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+          page-size: '1'
+          log-level: 'info'
+
+      - name: Assert action failed (should reach Notion API, not page-size validation)
+        run: |
+          echo "outcome: ${{ steps.action_min.outcome }}"
+          if [ "${{ steps.action_min.outcome }}" != "failure" ]; then
+            echo "FAIL: expected action to fail (Notion API error with fake token)"
+            exit 1
+          fi
+          echo "PASS: action failed as expected (page-size=1 is valid, Notion API rejected fake token)"
+
+  test-page-size-max:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run action with page-size=100 (maximum valid value, expect Notion API failure not validation failure)
+        id: action_max
+        uses: .
+        continue-on-error: true
+        with:
+          github-repository-query: 'user:actions'
+          notion-token: 'secret_fakeinvalidtoken00000000000000000000000000'
+          notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+          page-size: '100'
+          log-level: 'info'
+
+      - name: Assert action failed (should reach Notion API, not page-size validation)
+        run: |
+          echo "outcome: ${{ steps.action_max.outcome }}"
+          if [ "${{ steps.action_max.outcome }}" != "failure" ]; then
+            echo "FAIL: expected action to fail (Notion API error with fake token)"
+            exit 1
+          fi
+          echo "PASS: action failed as expected (page-size=100 is valid, Notion API rejected fake token)"

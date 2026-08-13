@@ -1,4 +1,4 @@
-name: Test basic usage with invalid credentials
+name: Test optional inputs (delete-additional-rows and page-size)
 on:
   workflow_dispatch:
 jobs:
@@ -14,7 +14,9 @@ jobs:
           github-token: 'fake-github-token'
           notion-token: 'fake-notion-token'
           notion-database-id: 'fake-database-id'
-          log-level: 'info'
+          delete-additional-rows: 'false'
+          log-level: 'debug'
+          page-size: '10'
       - name: Assert action ran (outcome is failure due to invalid credentials)
         env:
           OUTCOME: ${{ steps.action.outcome }}
@@ -24,4 +26,4 @@ jobs:
             echo "FAIL: expected action to fail with invalid credentials, got '$OUTCOME'"
             exit 1
           fi
-          echo "PASS: action correctly failed with invalid credentials"
+          echo "PASS: action correctly failed with invalid credentials and accepted optional inputs"
