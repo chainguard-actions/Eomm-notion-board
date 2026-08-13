@@ -1,4 +1,4 @@
-name: Test basic usage - invalid credentials produce expected error
+name: Test debug log level with delete-additional-rows enabled
 on:
   workflow_dispatch:
 jobs:
@@ -15,10 +15,10 @@ jobs:
           github-token: 'fake-github-token'
           notion-token: 'secret_fakefakefakefakefakefakefakefakefakefakefakefake'
           notion-database-id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
-          delete-additional-rows: 'false'
-          log-level: 'info'
+          delete-additional-rows: 'true'
+          log-level: 'debug'
 
-      - name: Assert action ran (container started and exited with expected failure)
+      - name: Assert action ran with debug log level
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
@@ -31,7 +31,7 @@ jobs:
           fi
           # Acceptable outcomes: 'failure' (bad credentials) or 'success'
           if [ "$OUTCOME" = "failure" ] || [ "$OUTCOME" = "success" ]; then
-            echo "PASS: action ran with outcome=$OUTCOME"
+            echo "PASS: action ran with outcome=$OUTCOME and log-level=debug"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1
