@@ -8,7 +8,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
-| v0.4.1 | [`v0.4.1`](https://github.com/chainguard-actions/Eomm-notion-board/tree/v0.4.1) | — |
+| v0.4.1 | [`v0.4.1`](https://github.com/chainguard-actions/Eomm-notion-board/tree/v0.4.1) | [`ea8ad7e`](https://github.com/Eomm/notion-board/commit/ea8ad7e63e90c44db3f003596f8821a7a1fcd031) |
 | v0.4.2 | [`v0.4.2`](https://github.com/chainguard-actions/Eomm-notion-board/tree/v0.4.2) | [`4f51daa`](https://github.com/Eomm/notion-board/commit/4f51daac389ba95e53567f35178641b28ef2278f) |
 | v0.5.0 | [`v0.5.0`](https://github.com/chainguard-actions/Eomm-notion-board/tree/v0.5.0) | [`31211ad`](https://github.com/Eomm/notion-board/commit/31211ad4106ac76917cf6ff1c5fc3e5415810928) |
 | v0.6.0 | [`v0.6.0`](https://github.com/chainguard-actions/Eomm-notion-board/tree/v0.6.0) | [`ade6d2e`](https://github.com/Eomm/notion-board/commit/ade6d2e189b8dadd2ce44175e0f25468bfd9c923) |
